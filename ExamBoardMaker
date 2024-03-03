@@ -1,0 +1,73 @@
+# drop database ExamBoard;
+
+create database ExamBoard;
+use ExamBoard;
+
+create table Subject(
+    subCode varchar(15) primary key,
+    name varchar(100) not null, credit int not null
+);
+create table Course(
+    courseCode varchar(15) primary key,
+    name varchar(50) not null
+);
+create table SubjectInCourse(
+    courseCode varchar(15), sem int,
+    subCode varchar(15), primary key(courseCode, sem, subCode),
+    foreign key(courseCode) references Course(courseCode),
+    foreign key(subCode) references Subject(subCode)
+);
+
+
+create table Collage(
+    clgCode varchar(15) primary key,
+    name varchar(100) not null
+);
+create table CoursesInCollage(
+    clgCode varchar(15), courseCode varchar(15),
+    primary key(clgCode, courseCode),
+    foreign key(clgCode) references Collage(clgCode),
+    foreign key(courseCode) references Course(courseCode)
+);
+
+
+create table Class(
+    classId varchar(15) primary key,
+    clgCode varchar(15),
+    courseCode varchar(15), sem int, sec char,
+    unique(clgCode, courseCode, sem, sec),
+    foreign key(clgCode) references Collage(clgCode),
+    foreign key(courseCode) references Course(courseCode)
+);
+create table Teacher(
+    teacherId int primary key,
+    name varchar(20)
+);
+create table TeacherInClasses(
+    teacherId int, classId varchar(15), subCode varchar(15),
+    primary key(teacherId, classId),
+    foreign key(teacherId) references Teacher(teacherId),
+    foreign key(classId) references Class(classId),
+    foreign key(subCode) references Subject(subCode)
+);
+
+create table Student(
+    studentId int primary key,
+    name varchar(20)
+);
+create table StudentInClasses(
+    studentId int,
+    sem int, classId varchar(15),
+    primary key(studentId, sem, classId),
+    foreign key(studentId) references Student(studentId),
+    foreign key(classId) references Class(classId)
+);
+
+
+create table ExamMarks(
+    studentId int, sem int, subCode varchar(15),
+    marks int default 0,
+    primary key(studentId, sem, subCode),
+    foreign key(studentId) references Student(studentId),
+    foreign key(subCode) references Subject(subCode)
+);

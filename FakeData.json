@@ -1,0 +1,92 @@
+{
+  "subjects" : [
+    ["21MAT11", "Calculus & Differential Equations", 3],
+    ["21CIV14", "Elements of Civil Engineering and Mechanics", 3],
+    ["21MAT21", "Advanced Calculus and Numerical Methods", 3],
+    ["21PSP23", "Problem-Solving through Programming", 3],
+
+    ["21MAT31", "Transform Calculus, Fourier Series and Numerical Techniques Maths", 3],
+    ["21MAT41", "Complex Analysis, Probability and Statistical Methods", 3],
+    ["21XXP75", "Project work", 10],
+
+    ["21ARC33", "Climatology", 3],
+    ["21ARC35", "Building Services 1", 2],
+    ["21ARC41", "Architectural Design", 3],
+    ["21ARC44", "Building Services 2", 2],
+    ["21ARC51", "Architectural Design 2", 4],
+    ["21ARC55", "Building Services 3", 2],
+    ["21ARC61", "Architectural Design 3", 2],
+    ["21ARC65", "Building Services 4", 2],
+    ["21ARC73", "Urban Design", 5],
+    ["21ARC74", "Professional Practice", 4],
+    ["21ARC83", "Urban Planning", 3],
+    ["21ARC84", "Thesis seminar", 7],
+
+    ["21CH32", "Momentum Transfer", 4],
+    ["21CHL35", "Technical Chemistry Lab", 1],
+    ["21CH44", "Mass Transfer Operations", 4],
+    ["21BE45", "Biology For Engineers", 2],
+    ["21CH52", "Separation Processes", 4],
+    ["21CH54", "Chemical Reaction Engineering", 3],
+    ["21CH63", "Computer Applications & Modeling", 4],
+    ["21CH61", "Process Engineering Economics and Management", 4],
+    ["21CH71", "Process Equipment Design & Drawing", 4],
+    ["21CH72", "Biochemical Engineering", 4],
+
+    ["21CS33", "Analog and Digital Electronics", 4],
+    ["21CS42", "Design and Analysis of Algorithms", 4],
+    ["21CS44", "Operating System", 4],
+    ["21CS51", "Automata Theory and compiler Design", 3],
+    ["21CS52", "Computer Networks", 4],
+    ["21CS61", "Software Engineering & Project Management", 3],
+    ["21CS62", "Fullstack Development", 4],
+    ["21CS71", "Big Data Analytics", 3],
+    ["21CS72", "Cloud Computing", 2],
+
+    ["21MT34", "Mechanics of solids and fluids", 4],
+    ["21MT33", "Material Science and Manufacturing Technology", 3],
+    ["21MT43", "Hydraulics and Pneumatics", 3],
+    ["21MT44", "Microcontrollers and applications", 5],
+    ["21MT52", "Micro and Smart System Technology", 2],
+    ["21MTL55", "Virtual Instrumentation Lab", 2],
+    ["21MT63", "Industrial Robotics", 4],
+    ["21MTL66", "Robotics Lab", 5],
+    ["21MT71", "Thermal Engineering", 4],
+    ["21MT72", "Communication systems ", 3],
+    ["21MT73", "BigDataAnalytics", 2]
+  ],
+  "courses": {
+    "AT" : [
+      "Architecture Engineering",
+      ["21MAT11", "21CIV14"], ["21MAT21", "21PSP23"], ["21MAT31", "21ARC33"], ["21MAT41", "21ARC41"],
+      ["21ARC51", "21ARC55"], ["21ARC61", "21ARC65"], ["21ARC73", "21ARC74"], ["21ARC83", "21ARC84"]
+    ],
+    "CH" : [
+      "Chemical Engineering",
+      ["21MAT11", "21CIV14"], ["21MAT21", "21PSP23"], ["21MAT31", "21CH32"], ["21MAT41", "21CH44"],
+      ["21CH52", "21CH54"], [ "21CH63", "21CH61"], ["21CH71", "21XXP75"], ["21CH72", "21XXP75"]
+    ],
+    "CS" : [
+      "Computer Science and Engineering",
+      ["21MAT11","21CIV14"], ["21MAT21","21PSP23"], ["21MAT31", "21CS33"], ["21MAT41", "21CS42"],
+      ["21CS51", "21CS52"], ["21CS61", "21CS62"], ["21CS71","21XXP75"], ["21CS72", "21XXP75"]
+    ],
+    "MT" : [
+      "Mechatronics Engineering",
+      ["21MAT11","21CIV14"], ["21MAT21","21PSP23"], ["21MAT31", "21MT34"], ["21MAT41", "21MT44"],
+      ["21MT52", "21MTL55"], ["21MT63", "21MTL66"], ["21MT71", "21XXP75"], ["21MT72", "21MT73"]
+    ]
+  },
+  "collage": {
+    "AIT": ["Acharya Institute of Technology", ["AT", "CS", "CH", "MT"]],
+    "BIT": ["Bangalore Institute of Technology", ["CH", "CS", "MT"]],
+    "PES": ["Peoples Education Society College of Engineering", ["AT", "CS", "MT"]],
+    "REV": ["Reva College of Engineering", ["CS", "CH"]],
+    "SP": ["Sapthagiri College of Engineering", ["CS", "MT"]]
+  },
+
+  "noOfSem": 8, "noOfSec": 2,
+  "teacherCanHandelClass": 9
+
+
+}
