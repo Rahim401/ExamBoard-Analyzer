@@ -40,19 +40,19 @@ create table Class(
     foreign key(courseCode) references Course(courseCode)
 );
 create table Teacher(
-    teacherId int primary key,
+    teacherId int primary key auto_increment,
     name varchar(20)
 );
 create table TeacherInClasses(
     teacherId int, classId varchar(15), subCode varchar(15),
-    primary key(teacherId, classId),
+    primary key(teacherId, classId, subCode),
     foreign key(teacherId) references Teacher(teacherId),
     foreign key(classId) references Class(classId),
     foreign key(subCode) references Subject(subCode)
 );
 
 create table Student(
-    studentId int primary key,
+    studentId int primary key auto_increment,
     name varchar(20)
 );
 create table StudentInClasses(

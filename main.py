@@ -20,3 +20,4 @@ for courseCode, courseData in courses.items(): db.insertCourseEx(courseCode, cou
 for collageCode, collageData in collage.items(): db.insertCollageEx(collageCode, collageData[0], collageData[1])
 db.generateClasses()
 db.generateAndPlaceTeachers()
+# db.generateAndAllocateStudents()

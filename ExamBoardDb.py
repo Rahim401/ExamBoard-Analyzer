@@ -1,3 +1,5 @@
+import random
+
 from sqlalchemy import Connection, text
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -45,12 +47,14 @@ class ExamBoard:
     def insertClass(self, classId, clgCode, courseCode, sem, sec):
         statement = f"INSERT INTO Class (classId, clgCode, courseCode, sem, sec) VALUES ('{classId}', '{clgCode}', '{courseCode}', {sem}, '{sec}')"
         self.executeStatement(statement, True)
-    def insertTeacher(self, teacherId, name):
-        statement = f"INSERT INTO Teacher (teacherId, name) VALUES ({teacherId}, '{name}')"
+    def insertTeacher(self, name):
+        statement = f"INSERT INTO Teacher (name) VALUES ( '{name}')"
         self.executeStatement(statement, True)
-    def insertStudent(self, studentId, name):
-        statement = f"INSERT INTO Student (studentId, name) VALUES ({studentId}, '{name}')"
+        return self.executeStatement("SELECT LAST_INSERT_ID();").first()[0]
+    def insertStudent(self, name):
+        statement = f"INSERT INTO Student (name) VALUES ('{name}')"
         self.executeStatement(statement, True)
+        return self.executeStatement("SELECT LAST_INSERT_ID();").first()[0]
     def insertExamMarks(self, studentId, sem, subCode, marks):
         statement = f"INSERT INTO ExamMarks (studentId, sem, subCode, marks) VALUES ({studentId}, {sem}, '{subCode}', {marks})"
         self.executeStatement(statement, True)
@@ -77,22 +81,59 @@ class ExamBoard:
         self.insertCollage(clgCode, name)
         for courseCode in courses:
             self.insertCoursesInCollage(clgCode, courseCode)
-    def generateClasses(self, noOfSem=8, noOfSec=2):
+    def generateClasses(self, noOfSem=4, noOfSec=2):
         listOfClgCourses = self.executeStatement("select * from CoursesInCollage;").all()
         for clgCode, courseCode in listOfClgCourses:
             for sem in range(1, noOfSem+1):
                 for sec in "ABCDEFGH"[:noOfSec]:
                     self.insertClass(f"{clgCode}BE{courseCode}{sem}{sec}", clgCode, courseCode, sem, sec)
-    def generateAndPlaceTeachers(self, teacherCanHandel=5):
+    def generateAndPlaceTeachers(self, canHandelRange=(12, 20)):
         query = """
             select c.classId, sc.subCode 
             from Class c,SubjectInCourse sc
-            where c.courseCode = sc.courseCode
+            where c.courseCode = sc.courseCode and c.sem = sc.sem
         """
-        listOfClassSub = self.executeStatement(query).all()
+        listOfClassSub = list(self.executeStatement(query).all())
+        rd = random.Random()
+
+        while len(listOfClassSub) > 0:
+            teacherId = self.insertTeacher("Paith Yam")
+            canHandel = rd.randint(*canHandelRange)
+            for i in range(min(canHandel, len(listOfClassSub))):
+                idx = rd.randint(0, len(listOfClassSub)-1)
+                classId, subCode = listOfClassSub.pop(idx)
+                self.insertTeacherInClasses(teacherId, classId, subCode)
+
+    def generateAndAllocateStudents(self, classStrengthRange=(5, 10)):
+        listOfClass = list(self.executeStatement("select sem,classId from class;").all())
+        rd = random.Random()
+
+        for sem, classId in listOfClass:
+            classStrength = rd.randint(*classStrengthRange)
+            for _ in range(classStrength):
+                studentId = self.insertStudent("Puda Karan")
+                print("Inserting ", sem, classId, studentId)
+                self.insertStudentInClasses(studentId, sem, classId)
+
+    def generateStudentMarks(self, tillSem=8):
+        query = """
+            select c.classId, sc.subCode 
+            from Class c,SubjectInCourse sc
+            where c.courseCode = sc.courseCode and c.sem = sc.sem
+        """
+        listOfClassSub = list(self.executeStatement(query).all())
+        rd = random.Random()
+
+        # while len(listOfClassSub) > 0:
+        #     teacherId = self.insertTeacher("Paith Yam")
+        #     canHandel = rd.randint(*canHandelRange)
+        #     for i in range(min(canHandel, len(listOfClassSub))):
+        #         idx = rd.randint(0, len(listOfClassSub) - 1)
+        #         classId, subCode = listOfClassSub.pop(idx)
+
+        # teachersNeed = len(listOfClassSub)/teacherCanHandel
 
 
-        print(listOfClassSub)
         # for clgCode, courseCode in listOfClgCourses:
         #     for sem in range(1, noOfSem+1):
         #         for sec in "ABCDEFGH"[:noOfSec]:
